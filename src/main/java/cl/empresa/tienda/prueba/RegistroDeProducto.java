@@ -6,10 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import cl.empresa.tienda.Producto;
 import cl.empresa.tienda.dao.CategoriaDAO;
 import cl.empresa.tienda.dao.ProductoDAO;
 import cl.empresa.tienda.modelo.Categoria;
+import cl.empresa.tienda.modelo.Producto;
 import cl.empresa.tienda.utils.JPAUtils;
 
 public class RegistroDeProducto {

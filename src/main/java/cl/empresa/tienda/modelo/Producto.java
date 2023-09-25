@@ -1,4 +1,4 @@
-package cl.empresa.tienda;
+package cl.empresa.tienda.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import cl.empresa.tienda.modelo.Categoria;
 
 @Entity
 @Table(name="productos")

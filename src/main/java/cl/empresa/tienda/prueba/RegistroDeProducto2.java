@@ -5,22 +5,46 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import cl.empresa.tienda.Producto;
 import cl.empresa.tienda.dao.CategoriaDAO;
+import cl.empresa.tienda.dao.ClienteDAO;
+import cl.empresa.tienda.dao.PedidoDAO;
 import cl.empresa.tienda.dao.ProductoDAO;
 import cl.empresa.tienda.modelo.Categoria;
+import cl.empresa.tienda.modelo.Cliente;
+import cl.empresa.tienda.modelo.ItemsPedido;
+import cl.empresa.tienda.modelo.Pedido;
+import cl.empresa.tienda.modelo.Producto;
 import cl.empresa.tienda.utils.JPAUtils;
 
 public class RegistroDeProducto2 {
 
 	public static void main(String[] args) {
 		registrarProducto();
-		consultarEspecifico();
-		consultarTodos();
-		consultarPorNombre();
-		consultaPorNombreDeCategoria();
-		consultaDePrecioPorNombreProducto();
+		//consultarEspecifico();
+		//consultarTodos();
+		//consultarPorNombre();
+		//consultaPorNombreDeCategoria();
+		//consultaDePrecioPorNombreProducto();
 		
+		EntityManager em = JPAUtils.getEntityManager();
+		
+		ProductoDAO productoDAO = new ProductoDAO(em);
+		Producto producto = productoDAO.consultaPorId(1l);
+		
+		PedidoDAO pedidoDAO = new PedidoDAO(em);
+		
+		ClienteDAO clienteDAO = new ClienteDAO(em);
+		Cliente cliente = new Cliente("Juan", "12300500-6");
+		
+		Pedido pedido = new Pedido(cliente);
+		pedido.agregarItems(new ItemsPedido(5,producto,pedido));
+		
+		em.getTransaction().begin();
+		
+		clienteDAO.guardar(cliente);
+		pedidoDAO.guardar(pedido);
+		
+		em.getTransaction().commit();
 		
 	}
 
@@ -71,7 +95,7 @@ public class RegistroDeProducto2 {
 		
 		//Creamos un objeto de tipo producto nombrado como celular
 		//Asociamos a nuestro objeto celular su respectiva categoria
-		Producto celular = new Producto("Samsung","telefono usado",new BigDecimal("1000"),celulares);
+		Producto celular = new Producto("Samsung","telefono usado",new BigDecimal(1000),celulares);
 		//celular.setNombre("Samsung");
 		//celular.setDescripcion("Telefono Usado");
 		//celular.setPrecio(new BigDecimal("1000"));
