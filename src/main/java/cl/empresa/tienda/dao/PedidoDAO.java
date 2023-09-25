@@ -30,22 +30,22 @@ public class PedidoDAO {
 		return this.em.createQuery(jpql,Pedido.class).getResultList();
 	}
 	
-	public List<Pedido> consultaPorNombre(String nombre){
-		//String jpql = "SELECT P FROM Pedido AS P WHERE P.nombre=:1 AND P.descripcion=:2";
-		String jpql = "SELECT P FROM Pedido AS P WHERE P.nombre=:nombre";
-		//El primer parametro es de la consulta y el segundo parametro es el parametro del metodo
-		return em.createQuery(jpql,Pedido.class).setParameter("nombre", nombre).getResultList();
+	public BigDecimal valorTotalVendido() {
+		String jpql = "SELECT SUM(p.valorTotal) from Pedido p";
+		return em.createQuery(jpql,BigDecimal.class).getSingleResult();
 	}
 	
-	public List<Pedido> consultaPorNonbreDeCategoria(String nombre){
-		String jpql = "SELECT p FROM Pedido AS p WHERE p.categoria.nombre=:nombre";
-		return em.createQuery(jpql,Pedido.class).setParameter("nombre", nombre).getResultList();
+	public Double valorPromedioVendido() {
+		String jpql = "SELECT avg(p.valorTotal) from Pedido p";
+		return em.createQuery(jpql,Double.class).getSingleResult();
 	}
 	
-	public BigDecimal consultarPrecioPorNombreDePedido(String nombre) {
-		String jpql = "SELECT p.precio FROM Pedido AS p WHERE p.nombre=:nombre";
-		return em.createQuery(jpql,BigDecimal.class).setParameter("nombre", nombre).getSingleResult();
-		
-		
+	public List<Object[]> relatorioDeVentas(){
+		//Consulta creada a partir de las entidades y alias basados en jpa
+		//Pedido es la entidad | pedido es el alias | se crea un alias con Pedido.items como item | 
+		String jpql = "SELECT producto.nombre, SUM(item.cantidad), MAX(pedido.fecha) FROM Pedido pedido JOIN pedido.items item JOIN item.producto producto GROUP BY producto.nombre ORDER BY item.cantidad DESC";
+		return em.createQuery(jpql,Object[].class).getResultList();
 	}
+	
+	
 }

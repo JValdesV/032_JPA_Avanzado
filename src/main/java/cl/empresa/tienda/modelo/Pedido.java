@@ -31,7 +31,7 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy="pedido",cascade=CascadeType.ALL)
-	private List<ItemsPedido> Items = new ArrayList<>();
+	private List<ItemsPedido> items = new ArrayList<>();
 	//Gracias al jointable podemos crear la tabla intermedia que relaciona una relacion m:n
 	
 	public Pedido() {
@@ -76,7 +76,7 @@ public class Pedido {
 	
 	public void agregarItems(ItemsPedido item) {
 		item.setPedido(this);
-		this.Items.add(item);
+		this.items.add(item);
 		this.valorTotal = this.valorTotal.add(item.getValor());
 	}
 

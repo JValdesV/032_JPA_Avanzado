@@ -46,6 +46,19 @@ public class RegistroDeProducto2 {
 		
 		em.getTransaction().commit();
 		
+		BigDecimal valorTotal = pedidoDAO.valorTotalVendido();
+		System.out.println("Valor total: "+valorTotal);
+		
+		//Se crea una lista de objetos de tipo array llamada relatorio para crear un informe acerca de las ventas
+		List<Object[]> relatorio = pedidoDAO.relatorioDeVentas();
+		//Se secuencia la lista con la finalidad de iterar la lista y sacar los elementos 
+		for(Object[] elemento: relatorio) {
+			System.out.println(elemento[0]);
+			System.out.println(elemento[1]);
+			System.out.println(elemento[2]);
+		}
+		
+		
 	}
 
 	private static void consultaDePrecioPorNombreProducto() {
