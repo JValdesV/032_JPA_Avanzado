@@ -15,6 +15,7 @@ import cl.empresa.tienda.modelo.ItemsPedido;
 import cl.empresa.tienda.modelo.Pedido;
 import cl.empresa.tienda.modelo.Producto;
 import cl.empresa.tienda.utils.JPAUtils;
+import cl.empresa.tienda.vo.RelatorioDeVenta;
 
 public class RegistroDeProducto2 {
 
@@ -49,15 +50,21 @@ public class RegistroDeProducto2 {
 		BigDecimal valorTotal = pedidoDAO.valorTotalVendido();
 		System.out.println("Valor total: "+valorTotal);
 		
+		//Alternativa generica 
+		
 		//Se crea una lista de objetos de tipo array llamada relatorio para crear un informe acerca de las ventas
-		List<Object[]> relatorio = pedidoDAO.relatorioDeVentas();
+		//List<Object[]> relatorio = pedidoDAO.relatorioDeVentas();
 		//Se secuencia la lista con la finalidad de iterar la lista y sacar los elementos 
+		/*
 		for(Object[] elemento: relatorio) {
 			System.out.println(elemento[0]);
 			System.out.println(elemento[1]);
 			System.out.println(elemento[2]);
 		}
-		
+		*/
+		//Alternativa con ValueObject
+		List<RelatorioDeVenta> relatorioVO = pedidoDAO.relatorioDeVentasVO();
+		relatorioVO.forEach(x->System.out.println(x.toString()));
 		
 	}
 

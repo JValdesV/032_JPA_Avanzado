@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import cl.empresa.tienda.modelo.Pedido;
+import cl.empresa.tienda.vo.RelatorioDeVenta;
 
 public class PedidoDAO {
 	
@@ -45,6 +46,13 @@ public class PedidoDAO {
 		//Pedido es la entidad | pedido es el alias | se crea un alias con Pedido.items como item | 
 		String jpql = "SELECT producto.nombre, SUM(item.cantidad), MAX(pedido.fecha) FROM Pedido pedido JOIN pedido.items item JOIN item.producto producto GROUP BY producto.nombre ORDER BY item.cantidad DESC";
 		return em.createQuery(jpql,Object[].class).getResultList();
+	}
+	
+	public List<RelatorioDeVenta> relatorioDeVentasVO(){
+		//Consulta creada a partir de las entidades y alias basados en jpa
+		//Pedido es la entidad | pedido es el alias | se crea un alias con Pedido.items como item | 
+		String jpql = "SELECT new cl.empresa.tienda.vo.RelatorioDeVenta(producto.nombre, SUM(item.cantidad), MAX(pedido.fecha)) FROM Pedido pedido JOIN pedido.items item JOIN item.producto producto GROUP BY producto.nombre ORDER BY item.cantidad DESC";
+		return em.createQuery(jpql,RelatorioDeVenta.class).getResultList();
 	}
 	
 	
