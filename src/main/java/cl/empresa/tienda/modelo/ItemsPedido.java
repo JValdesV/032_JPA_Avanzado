@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,11 +25,11 @@ public class ItemsPedido {
 	private int cantidad;
 	
 	private BigDecimal precioUnitario;
-	
-	@ManyToOne
+	//Los recursos se traen solo cuando son necesarios
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Producto producto;
-	
-	@ManyToOne
+	//Los recursos se traen solo cuando son necesarios
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Pedido pedido;
 	
 	public ItemsPedido() {
