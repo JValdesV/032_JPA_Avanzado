@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import cl.empresa.tienda.modelo.Pedido;
+import cl.empresa.tienda.modelo.Producto;
 import cl.empresa.tienda.vo.RelatorioDeVenta;
 
 public class PedidoDAO {
@@ -55,5 +56,8 @@ public class PedidoDAO {
 		return em.createQuery(jpql,RelatorioDeVenta.class).getResultList();
 	}
 	
-	
+	public Pedido consultarPedidoConCliente(Long id){
+		String jpql = "SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id=:id";
+		return em.createQuery(jpql,Pedido.class).setParameter("id", id).getSingleResult();
+	}
 }
