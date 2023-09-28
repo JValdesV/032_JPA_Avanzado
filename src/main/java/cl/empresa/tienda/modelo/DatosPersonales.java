@@ -1,10 +1,12 @@
 package cl.empresa.tienda.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 //Clase que va ha ser inyectada en la clase Cliente
 @Embeddable
-public class DatosPersonales {
+public class DatosPersonales implements Serializable{
 
 	private String nombre;
 	private String dni;

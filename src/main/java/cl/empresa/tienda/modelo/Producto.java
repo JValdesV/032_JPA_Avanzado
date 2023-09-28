@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,6 +20,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="productos")
 @NamedQuery(name="Producto.consultaDePrecio", query="SELECT p.precio FROM Producto AS p WHERE p.nombre=:nombre")
+//Esta estrategia SINGLE_TABLE cuando trabajamos con herencia, crea una tabla con todos los parametros de todas las entidades
+//Ganamos mas velocidad a costa de desorden en la bd
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+//Otra alternativa es trabjar con estrategia JOINED donde se crea una tabla externa con los campos
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Producto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
